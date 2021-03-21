@@ -1,5 +1,13 @@
+import {useNavigation} from '@react-navigation/core';
 import React from 'react';
-import {StyleSheet, TextInput, Text, View, Dimensions} from 'react-native';
+import {
+  StyleSheet,
+  TextInput,
+  Text,
+  View,
+  Dimensions,
+  Pressable,
+} from 'react-native';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import Colors from '../../../assets/theme/light';
 
@@ -10,6 +18,7 @@ interface Props {
 }
 
 const header: React.FC<Props> = ({data}) => {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
@@ -20,12 +29,14 @@ const header: React.FC<Props> = ({data}) => {
         />
       </View>
       <View style={styles.navIcon}>
-        <IonIcon
-          style={styles.iconStyle}
-          name="heart"
-          size={25}
-          color={Colors.gray7}
-        />
+        <Pressable onPress={() => navigation.navigate('favorite')}>
+          <IonIcon
+            style={styles.iconStyle}
+            name="heart"
+            size={25}
+            color={Colors.gray7}
+          />
+        </Pressable>
         <IonIcon
           style={styles.iconStyle}
           name="mail"

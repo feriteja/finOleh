@@ -15,6 +15,7 @@ import {
   updateCountCart,
   deleteCartItem,
 } from '../../../config/redux/actions/cartHandler';
+import {moveToFavorite} from '../../../config/redux/actions/favoriteHandler';
 
 interface item {
   name: string;
@@ -33,8 +34,6 @@ interface item {
 
 interface Props {
   item: item;
-  onDataChange: (a: any) => void;
-  onDelete: () => void;
 }
 
 const cartCard: React.FC<Props> = ({item}) => {
@@ -94,7 +93,10 @@ const cartCard: React.FC<Props> = ({item}) => {
         </View>
       </View>
       <View style={styles.cardOption}>
-        <Text style={styles.moveWishL}>Move to Wishlist</Text>
+        <TouchableOpacity
+          onPress={() => dispatch(moveToFavorite({itemUid: item.uid}))}>
+          <Text style={styles.moveWishL}>Move to Wishlist</Text>
+        </TouchableOpacity>
         <View style={styles.cardOptionButton}>
           <TouchableOpacity onPress={() => onDelete()}>
             <IconFeather

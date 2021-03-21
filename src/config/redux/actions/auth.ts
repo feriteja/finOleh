@@ -16,7 +16,6 @@ const signIn = ({email, password}: userPass) => {
         return data.user.providerData[0];
       })
       .catch((error) => {
-        console.log(error);
         if (
           error.code === 'auth/invalid-email' ||
           error.code === 'auth/wrong-password' ||
@@ -47,7 +46,6 @@ const signUp = ({email, password}: userPass) => {
         return {status: 'success', data};
       })
       .catch((error) => {
-        console.log(error);
         if (error.code === 'auth/email-already-in-use') {
           return {
             status: 'error',

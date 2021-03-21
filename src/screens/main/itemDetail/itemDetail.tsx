@@ -6,10 +6,12 @@ import {
   View,
   Dimensions,
   TouchableOpacity,
+  Pressable,
 } from 'react-native';
 import {Gap, HeaderItemDetail} from '../../../components/';
 import {useDispatch} from 'react-redux';
 import {addCartItem} from '../../../config/redux/actions/cartHandler';
+import {addToFavorite} from '../../../config/redux/actions/favoriteHandler';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import IconFeather from 'react-native-vector-icons/Feather';
 import Colors from '../../../assets/theme/light';
@@ -58,7 +60,9 @@ const itemDetail = ({route, navigation}: any) => {
             justifyContent: 'space-between',
           }}>
           <Text style={styles.textPrice}>Rp. {item.price}</Text>
-          <IonIcon name="heart-outline" color={'#444'} size={25} />
+          <TouchableOpacity onPress={() => dispatch(addToFavorite(item))}>
+            <IonIcon name="heart-outline" color={'#444'} size={25} />
+          </TouchableOpacity>
         </View>
         <Gap height={10} />
         <View style={styles.discountContainer}>

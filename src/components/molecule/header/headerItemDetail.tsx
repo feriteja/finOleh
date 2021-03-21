@@ -7,6 +7,7 @@ import {
   Dimensions,
   StatusBar,
   TouchableOpacity,
+  Pressable,
 } from 'react-native';
 import Colors from '../../../assets/theme/light';
 import IonIcon from 'react-native-vector-icons/Ionicons';
@@ -36,12 +37,14 @@ const headerItemDetail: React.FC<Props> = ({data}) => {
         />
       </View>
       <View style={styles.navIcon}>
-        <IonIcon
-          style={styles.iconStyle}
-          name="heart"
-          size={25}
-          color={Colors.gray}
-        />
+        <Pressable onPress={() => navigation.navigate('favorite')}>
+          <IonIcon
+            style={styles.iconStyle}
+            name="heart"
+            size={25}
+            color={Colors.gray}
+          />
+        </Pressable>
         <TouchableOpacity
           onPress={() => navigation.push('main', {screen: 'cart'})}>
           <IonIcon

@@ -6,7 +6,6 @@ interface stateINT {
   price: number;
   originalPrice: number;
   img: string;
-  number: number;
   uid: string;
   shop: {
     lat: number;
@@ -20,31 +19,21 @@ const initialState: stateINT[] = [];
 
 export default function (state = initialState, action: AnyAction) {
   switch (action.type) {
-    case actionSTATE.GET_CART:
+    case actionSTATE.GET_FAVORITE:
       return [...action.payload];
 
-    case actionSTATE.ADD_CART_ITEM:
-      const findIDX = state.findIndex((x) => x.uid === action.uid);
-
-      const addArrayNew = [...state];
-      if (findIDX >= 0) {
-        addArrayNew[findIDX] = action.payload;
-        return addArrayNew;
+    case actionSTATE.ADD_FAVORITE:
+      if (state.some((a) => a.uid === action.payload.uid)) {
+        return [...state];
       } else {
         return [...state, {...action.payload}];
       }
 
-    case actionSTATE.UPDATE_CART_ITEM:
-      const resultIDX = state.findIndex((x) => x.uid === action.uidItem);
-      const newArray = [...state];
-      newArray[resultIDX].number = action.payload;
-      return newArray;
-
-    case actionSTATE.DELETE_CART_ITEM:
+    case actionSTATE.DELETE_FAVORITE:
       const filterArray = state.filter((a) => a.uid !== action.payload);
       return filterArray;
 
-    case actionSTATE.CLEAR_ITEM:
+    case actionSTATE.CLEAR_FAVORITE:
       return [];
 
     default:

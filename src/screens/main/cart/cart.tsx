@@ -6,48 +6,13 @@ import {
   Dimensions,
   TouchableOpacity,
   ScrollView,
-  LogBox,
-  KeyboardAvoidingView,
   FlatList,
-  ImageURISource,
 } from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import Colors from '../../../assets/theme/light';
 import {HeaderCart, Gap, CartCard} from '../../../components/';
-import {getCart, cleanCart} from '../../../config/redux/actions/cartHandler';
 
 const {height, width} = Dimensions.get('window');
-
-const dataArray = [
-  {
-    nameShop: 'Shop1',
-    location: 'bandung',
-    item: {name: 'Dodol Garut Rasa Rujak', originalPrice: 30000, price: 23000},
-    count: 1,
-    image: require('../../../assets/img/food/dodol.jpg'),
-  },
-  {
-    nameShop: 'ShopKuya',
-    location: 'bandung',
-    item: {name: 'Lemper Uenak', originalPrice: 20000, price: 20000},
-    count: 1,
-    image: require('../../../assets/img/bannerFood/lemper.jpg'),
-  },
-  {
-    nameShop: 'ManisEnakShop',
-    location: 'bandung',
-    item: {name: 'Kue Mendut', originalPrice: 50000, price: 40000},
-    count: 1,
-    image: require('../../../assets/img/bannerFood/kueMendut.jpg'),
-  },
-  {
-    nameShop: 'CakeShop',
-    location: 'jakarta',
-    item: {name: 'Kue Putu Ayu', originalPrice: 25000, price: 20000},
-    count: 1,
-    image: require('../../../assets/img/bannerFood/kuePutuAyu.jpg'),
-  },
-];
 
 interface dataArrayIntf {
   name: string;

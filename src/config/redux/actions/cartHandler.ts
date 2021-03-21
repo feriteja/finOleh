@@ -15,8 +15,8 @@ export const getCart = () => {
       const dataCartList = dataCartArray.docs.map((data) => data.data());
 
       const dataCartDetailPromises = dataCartList.map(async (promise) => {
-        const dataCart = await firestore().doc(promise.ref).get();
-        const dataItemShop = await firestore().doc(promise.shop).get();
+        const dataCart = await firestore().doc(promise.itemRef).get();
+        const dataItemShop = await firestore().doc(promise.shopRef).get();
         return {
           ...dataCart.data(),
           number: promise.number,
@@ -63,7 +63,11 @@ export const addCartItem = ({
           .doc(uidUser)
           .collection('cart')
           .doc(uid)
-          .set({ref, shop: shop.shopRef, number: dataExist.data().number + 1});
+          .set({
+            itemRef: ref,
+            shopRef: shop.shopRef,
+            number: dataExist.data().number + 1,
+          });
         dispatch({
           type: action.ADD_CART_ITEM,
           uid,
@@ -78,7 +82,7 @@ export const addCartItem = ({
           .doc(uidUser)
           .collection('cart')
           .doc(uid)
-          .set({ref, number: 1, shop: shop.shopRef});
+          .set({itemRef: ref, number: 1, shopRef: shop.shopRef});
         dispatch({
           type: action.ADD_CART_ITEM,
           uid,
@@ -88,9 +92,7 @@ export const addCartItem = ({
           },
         });
       }
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 };
 

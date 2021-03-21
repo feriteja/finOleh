@@ -3,6 +3,7 @@ export {default as HeaderHome} from './molecule/header/headerHome';
 export {default as HeaderProfile} from './molecule/header/headerProfile';
 export {default as HeaderCart} from './molecule/header/headerCart';
 export {default as HeaderItemDetail} from './molecule/header/headerItemDetail';
+export {default as HeaderFavorite} from './molecule/header/headerFavorite';
 export {default as Gap} from './atom/gap/gap';
 export {default as ItemCard} from './molecule/card/itemCard';
 export {default as CartCard} from './molecule/card/cartCard';

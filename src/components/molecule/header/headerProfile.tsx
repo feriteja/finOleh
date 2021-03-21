@@ -1,6 +1,15 @@
+import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {StyleSheet, TextInput, Text, View, Dimensions} from 'react-native';
+import {
+  StyleSheet,
+  TextInput,
+  Text,
+  View,
+  Dimensions,
+  Pressable,
+} from 'react-native';
 import IonIcon from 'react-native-vector-icons/Ionicons';
+import {useSelector} from 'react-redux';
 import Colors from '../../../assets/theme/light';
 
 const {height, width} = Dimensions.get('window');
@@ -10,18 +19,24 @@ interface Props {
 }
 
 const header: React.FC<Props> = ({data}) => {
+  const navigation = useNavigation();
+
+  const auth = useSelector((state) => state.auth);
+
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
-        <Text>@ myNameHere </Text>
+        <Text>{auth.info.email || '@myNameHere'}</Text>
       </View>
       <View style={styles.navIcon}>
-        <IonIcon
-          style={styles.iconStyle}
-          name="heart"
-          size={25}
-          color={Colors.gray4}
-        />
+        <Pressable onPress={() => navigation.navigate('favorite')}>
+          <IonIcon
+            style={styles.iconStyle}
+            name="heart"
+            size={25}
+            color={Colors.gray4}
+          />
+        </Pressable>
         <IonIcon
           style={styles.iconStyle}
           name="mail"

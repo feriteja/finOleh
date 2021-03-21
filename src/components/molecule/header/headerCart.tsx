@@ -1,15 +1,29 @@
+import {useNavigation} from '@react-navigation/core';
 import React from 'react';
-import {StyleSheet, Text, View, Dimensions} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  TouchableOpacity,
+  Pressable,
+} from 'react-native';
 
 import IonIcon from 'react-native-vector-icons/Ionicons';
 
-const {height, width} = Dimensions.get('window');
+const {height, width} = Dimensions.get('screen');
 
 const headerCart = () => {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.header}>
       <Text style={styles.headerText}>Cart</Text>
-      <IonIcon name="heart" size={25} />
+      <Pressable
+        style={{position: 'absolute', bottom: 5, right: 10}}
+        onPress={() => navigation.navigate('favorite')}>
+        <IonIcon name="heart-outline" size={25} />
+      </Pressable>
     </View>
   );
 };
@@ -20,15 +34,14 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: '#fff',
     flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
     paddingTop: 60,
     paddingBottom: 20,
     height: 50,
     width,
-    alignSelf: 'stretch',
     zIndex: 999,
     paddingHorizontal: 10,
-    justifyContent: 'space-between',
     elevation: 2,
   },
   headerText: {

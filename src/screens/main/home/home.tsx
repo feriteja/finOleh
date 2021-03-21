@@ -16,6 +16,10 @@ import {
   clearItemList,
 } from '../../../config/redux/actions/itemHandler';
 import {getCart, cleanCart} from '../../../config/redux/actions/cartHandler';
+import {
+  getFavorite,
+  cleanFavorite,
+} from '../../../config/redux/actions/favoriteHandler';
 
 const home: React.FC = () => {
   const dispatch = useDispatch();
@@ -24,10 +28,12 @@ const home: React.FC = () => {
   useEffect(() => {
     dispatch(getItemList());
     dispatch(getCart());
+    dispatch(getFavorite());
 
     return () => {
       dispatch(clearItemList);
       dispatch(cleanCart);
+      dispatch(cleanFavorite);
     };
   }, []);
 
