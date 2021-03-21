@@ -16,6 +16,7 @@ import {
   deleteCartItem,
 } from '../../../config/redux/actions/cartHandler';
 import {moveToFavorite} from '../../../config/redux/actions/favoriteHandler';
+import {moneyFormat} from '../../../utils/functions/function';
 
 interface item {
   name: string;
@@ -89,7 +90,7 @@ const cartCard: React.FC<Props> = ({item}) => {
               </Text>
             </View>
           )}
-          <Text style={styles.textPrice}>Rp. {item.price}</Text>
+          <Text style={styles.textPrice}>Rp. {moneyFormat(item.price)}</Text>
         </View>
       </View>
       <View style={styles.cardOption}>
@@ -164,6 +165,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     borderWidth: 0.5,
     borderColor: '#aaa',
+    backgroundColor: '#fff',
     borderRadius: 7,
   },
   cardContent: {

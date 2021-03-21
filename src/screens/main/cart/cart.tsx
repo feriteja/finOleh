@@ -11,6 +11,7 @@ import {
 import {useSelector} from 'react-redux';
 import Colors from '../../../assets/theme/light';
 import {HeaderCart, Gap, CartCard} from '../../../components/';
+import {moneyFormat} from '../../../utils/functions/function';
 
 const {height, width} = Dimensions.get('window');
 
@@ -44,10 +45,9 @@ const cart: React.FC<Props> = ({navigation}) => {
   const getAllItemPrice = () => {
     const getCountArr = dataCart.map((a) => a.number * a.price);
     const getCountTotal = getCountArr.reduce((a, b) => a + b, 0);
-    const moneyFormat = getCountTotal
-      .toString()
-      .replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1.');
-    return moneyFormat;
+
+    const Format = moneyFormat(getCountTotal);
+    return Format;
   };
 
   return (

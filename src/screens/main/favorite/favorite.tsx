@@ -1,24 +1,46 @@
 import React, {useEffect} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {useDispatch} from 'react-redux';
+import {FlatList, StyleSheet, Text, View} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 import {getFavorite} from '../../../config/redux/actions/favoriteHandler';
-import {HeaderFavorite} from '../../../components/';
+import {HeaderFavorite, FavoriteCard, Gap} from '../../../components/';
+
+interface item {
+  name: string;
+  price: number;
+  originalPrice: number;
+  img: string;
+  number: number;
+  shop: {
+    lat: number;
+    location: string;
+    name: string;
+    lng: number;
+  };
+  uid: string;
+}
 
 const favorite: React.FC = ({navigation}: any) => {
   const dispatch = useDispatch();
+  const favorites: item[] = useSelector((state) => state.favorite);
 
-  //   useEffect(() => {
-  //     const unsubscribe = navigation.addListener('focus', () => {
-  //       dispatch(getFavorite());
-  //     });
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      dispatch(getFavorite());
+    });
 
-  //     return unsubscribe;
-  //   }, [navigation]);
+    return unsubscribe;
+  }, [navigation]);
 
   return (
     <View>
       <HeaderFavorite />
-      <Text></Text>
+      <FlatList
+        data={favorites}
+        keyExtractor={(data) => data.uid}
+        contentContainerStyle={{marginHorizontal: 15, paddingTop: 10}}
+        ItemSeparatorComponent={() => <Gap height={10} />}
+        renderItem={({item}) => <FavoriteCard item={item} />}
+      />
     </View>
   );
 };

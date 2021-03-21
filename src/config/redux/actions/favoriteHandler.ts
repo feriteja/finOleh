@@ -51,6 +51,10 @@ export const getFavorite = () => {
   };
 };
 
+export const cleanFavorite = {
+  type: action.CLEAR_FAVORITE,
+};
+
 export const addToFavorite = (item: itemINT) => {
   return async (dispatch: any) => {
     const uidUser = auth().currentUser?.uid;
@@ -76,7 +80,7 @@ export const addToFavorite = (item: itemINT) => {
   };
 };
 
-export const moveToFavorite = ({itemUid}: any) => {
+export const moveToFavorite = ({itemUid}: {itemUid: string}) => {
   return async (dispatch: any) => {
     const uidUser = auth().currentUser?.uid;
     try {
@@ -109,6 +113,55 @@ export const moveToFavorite = ({itemUid}: any) => {
   };
 };
 
-export const cleanFavorite = {
-  type: action.CLEAR_FAVORITE,
+export const deleteFavorite = ({itemUid}: {itemUid: string}) => {
+  return async (dispatch: any) => {
+    const uidUser = auth().currentUser?.uid;
+    try {
+      await firestore()
+        .collection('user')
+        .doc(uidUser)
+        .collection('favorite')
+        .doc(itemUid)
+        .delete();
+      dispatch({type: action.DELETE_FAVORITE, payload: itemUid});
+    } catch (error) {}
+  };
+};
+
+export const moveToCart = ({itemUid}: {itemUid: string}) => {
+  return async (dispatch: any) => {
+    const uidUser = auth().currentUser?.uid;
+    try {
+      const cartItem = await firestore()
+        .collection('user')
+        .doc(uidUser)
+        .collection('favorite')
+        .doc(itemUid)
+        .get();
+      await firestore()
+        .collection('user')
+        .doc(uidUser)
+        .collection('cart')
+        .doc(itemUid)
+        .set({...cartItem.data()});
+
+      await cartItem.ref.delete();
+      const itemData = await firestore().doc(cartItem.data()?.itemRef).get();
+      const shopData = await firestore().doc(cartItem.data()?.shopRef).get();
+
+      const summary = {
+        ...itemData.data(),
+        shop: {
+          ...shopData.data(),
+          shopRef: shopData.ref.path,
+          shopUID: shopData.id,
+        },
+        uid: itemData.id,
+        number: 1,
+      };
+
+      dispatch({type: action.DELETE_FAVORITE, payload: itemUid});
+      dispatch({type: action.ADD_CART_ITEM, uid: itemUid, payload: summary});
+    } catch (error) {}
+  };
 };
