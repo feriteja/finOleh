@@ -9,6 +9,7 @@ import {
   Pressable,
 } from 'react-native';
 import IonIcon from 'react-native-vector-icons/Ionicons';
+import {useSelector} from 'react-redux';
 import Colors from '../../../assets/theme/light';
 
 const {height, width} = Dimensions.get('window');
@@ -18,6 +19,12 @@ interface Props {
 }
 
 const header: React.FC<Props> = ({data}) => {
+  const {auth} = useSelector((state) => state.auth);
+
+  const navigationHandler = (navigateTo: 'favorite' | 'cart') => {
+    auth ? navigation.navigate(navigateTo) : navigation.navigate('profile');
+  };
+
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
@@ -29,7 +36,7 @@ const header: React.FC<Props> = ({data}) => {
         />
       </View>
       <View style={styles.navIcon}>
-        <Pressable onPress={() => navigation.navigate('favorite')}>
+        <Pressable onPress={() => navigationHandler('favorite')}>
           <IonIcon
             style={styles.iconStyle}
             name="heart"

@@ -10,18 +10,24 @@ import {
 } from 'react-native';
 
 import IonIcon from 'react-native-vector-icons/Ionicons';
+import {useSelector} from 'react-redux';
 
 const {height, width} = Dimensions.get('screen');
 
 const headerCart = () => {
+  const {auth} = useSelector((state) => state.auth);
   const navigation = useNavigation();
+
+  const navigationHandler = () => {
+    auth ? navigation.navigate('favorite') : navigation.navigate('profile');
+  };
 
   return (
     <View style={styles.header}>
       <Text style={styles.headerText}>Cart</Text>
       <Pressable
         style={{position: 'absolute', bottom: 5, right: 10}}
-        onPress={() => navigation.navigate('favorite')}>
+        onPress={() => navigationHandler()}>
         <IonIcon name="heart-outline" size={25} />
       </Pressable>
     </View>

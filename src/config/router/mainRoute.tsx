@@ -147,20 +147,22 @@ const mainRoute: React.FC<Props> = ({navigation}) => {
           ),
           tabBarIcon: ({color, size}) => (
             <View>
-              <View
-                style={{
-                  position: 'absolute',
-                  right: -10,
-                  top: -3,
-                  backgroundColor: Colors.primary3,
-                  borderRadius: 999,
-                  zIndex: 99,
-                  padding: 3,
-                }}>
-                <Text style={{color: Colors.gray7, fontSize: 11}}>
-                  {cart.length}
-                </Text>
-              </View>
+              {cart.length > 0 && (
+                <View
+                  style={{
+                    position: 'absolute',
+                    right: -10,
+                    top: -3,
+                    backgroundColor: Colors.primary3,
+                    borderRadius: 999,
+                    zIndex: 99,
+                    padding: 3,
+                  }}>
+                  <Text style={{color: Colors.gray7, fontSize: 11}}>
+                    {cart.length}
+                  </Text>
+                </View>
+              )}
               <IonIcon name="cart-outline" size={25} color={color} />
             </View>
           ),

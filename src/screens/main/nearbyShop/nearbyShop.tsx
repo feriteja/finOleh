@@ -19,49 +19,67 @@ const nearbyShop: React.FC = ({navigation}) => {
   const mapRef = useRef<MapView>(null);
 
   const checkGPS = async () => {
-    let check = await LocationServicesDialogBox.checkLocationServicesIsEnabled({
-      message: 'Use Location ?',
-      ok: 'YES',
-      cancel: 'NO',
-    });
-
-    if (Object.is(check.status, 'enabled')) {
-      Geolocation.getCurrentPosition(
-        (info) => {
-          setMyLocation(info);
-        },
-        (error) => {
-          navigation.navigate('home');
-          console.warn('GPS no response');
-        },
-        {enableHighAccuracy: true, timeout: 40000},
-      );
-
-      Geolocation.watchPosition(
-        (a: any) => {
-          setMyLocation(a);
-        },
-        (error: any) => {},
+    try {
+      let check = await LocationServicesDialogBox.checkLocationServicesIsEnabled(
         {
-          enableHighAccuracy: true,
-          timeout: 1000,
-          distanceFilter: 0,
-          maximumAge: 0,
+          message: 'Use Location ?',
+          ok: 'YES',
+          cancel: 'NO',
         },
       );
+
+      console.log(check);
+      if (check.enabled) {
+        Geolocation.getCurrentPosition(
+          (info) => {
+            setMyLocation(info);
+            console.log(info);
+          },
+          (error) => {
+            console.log(error);
+            navigation.navigate('home');
+            console.warn('GPS no response');
+          },
+          {enableHighAccuracy: true, timeout: 10000},
+        );
+      }
+
+      // if (Object.is(check.status, 'enabled')) {
+      //   Geolocation.getCurrentPosition(
+      //     (info) => {
+      //       setMyLocation(info);
+      //     },
+      //     (error) => {
+      //       navigation.navigate('home');
+      //       console.warn('GPS no response');
+      //     },
+      //     {enableHighAccuracy: true, timeout: 40000},
+      //   );
+
+      //   Geolocation.watchPosition(
+      //     (a: any) => {
+      //       setMyLocation(a);
+      //     },
+      //     (error: any) => {},
+      //     {
+      //       enableHighAccuracy: true,
+      //       timeout: 1000,
+      //       distanceFilter: 0,
+      //       maximumAge: 0,
+      //     },
+      //   );
+      // }
+    } catch (error) {
+      navigation.navigate('home');
     }
   };
-
-  // const watchPosition = () => {
-
-  // };
 
   useEffect(() => {
     checkGPS();
     // watchPosition();
 
     return () => {
-      Geolocation.stopObserving();
+      // Geolocation.stopObserving();
     };
   }, []);
 

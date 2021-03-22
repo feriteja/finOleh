@@ -16,15 +16,19 @@ import Colors from '../../../assets/theme/light';
 const {height, width} = Dimensions.get('window');
 const headerFavorite: React.FC = () => {
   const cart = useSelector((state) => state.cart);
+  const {auth} = useSelector((state) => state.auth);
+
+  const navigationHandler = () => {
+    auth ? navigation.navigate('cart') : navigation.navigate('profile');
+  };
+
   const navigation = useNavigation();
 
   return (
     <View style={styles.header}>
       <Text style={styles.headerText}>WishList</Text>
 
-      <Pressable
-        style={{width: 30}}
-        onPress={() => navigation.navigate('cart')}>
+      <Pressable style={{width: 30}} onPress={() => navigationHandler()}>
         <Text
           style={{
             position: 'absolute',

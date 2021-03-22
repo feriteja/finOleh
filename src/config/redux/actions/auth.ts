@@ -1,5 +1,5 @@
 import auth from '@react-native-firebase/auth';
-
+import * as action from './index';
 import firestore from '@react-native-firebase/firestore';
 
 interface userPass {
@@ -65,8 +65,16 @@ const signUp = ({email, password}: userPass) => {
   };
 };
 
-const signOut = {
-  type: 'LOGOUTAUTH',
+// const signOut = {
+//   type: 'LOGOUTAUTH',
+// };
+
+const signOut = () => {
+  return (dispatch: any) => {
+    dispatch({type: action.LOGOUTAUTH});
+    dispatch({type: action.CLEAR_CART});
+    dispatch({type: action.CLEAR_FAVORITE});
+  };
 };
 
 export {signUp, signOut, signIn};

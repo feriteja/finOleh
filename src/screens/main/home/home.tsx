@@ -24,11 +24,14 @@ import {
 const home: React.FC = () => {
   const dispatch = useDispatch();
   const foodData = useSelector((state) => state.item);
+  const {auth} = useSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(getItemList());
-    dispatch(getCart());
-    dispatch(getFavorite());
+    if (auth) {
+      dispatch(getCart());
+      dispatch(getFavorite());
+    }
 
     return () => {
       dispatch(clearItemList);
