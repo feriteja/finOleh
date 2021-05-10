@@ -1,15 +1,27 @@
 {
+  "extends": "./tsconfig.paths.json",
     "compilerOptions": {
       "allowJs": true,
       "allowSyntheticDefaultImports": true,
       "esModuleInterop": true,
       "isolatedModules": true,
-      "jsx": "react",
+      "jsx": "react-jsx",
       "lib": ["es6"],
       "moduleResolution": "node",
       "noEmit": true,
+      "resolveJsonModule": true,
       "strict": true,
-      "target": "esnext"
+      "target": "esnext",
+      "experimentalDecorators": true, 
+      "baseUrl": "./src",
+      "paths":  {
+        "reduxAct/*":["./config/redux/actions/*"],
+        "myComponents":["./components"],
+        "myFunction/*":["./utils/functions/*"],
+        "myColors/*" :["./assets/theme/*"]
+        
+        }
+      
     },
     "exclude": [
       "node_modules",

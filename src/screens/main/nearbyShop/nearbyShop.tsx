@@ -18,7 +18,16 @@ const nearbyShop: React.FC = ({navigation}) => {
 
   const mapRef = useRef<MapView>(null);
 
-  const checkGPS = async () => {
+  const userAnimateMap = () => {
+    mapRef?.current?.animateCamera({
+      center: {
+        latitude: myLocation?.coords?.latitude,
+        longitude: myLocation?.coords?.longitude,
+      },
+    });
+  };
+
+  const getCurrentPosition = async () => {
     try {
       let check = await LocationServicesDialogBox.checkLocationServicesIsEnabled(
         {
@@ -28,7 +37,7 @@ const nearbyShop: React.FC = ({navigation}) => {
         },
       );
 
-      console.log(check);
+      console.log('check', check);
       if (check.enabled) {
         Geolocation.getCurrentPosition(
           (info) => {
@@ -40,46 +49,38 @@ const nearbyShop: React.FC = ({navigation}) => {
             navigation.navigate('home');
             console.warn('GPS no response');
           },
-          {enableHighAccuracy: true, timeout: 10000},
+          {enableHighAccuracy: false, timeout: 10000},
         );
+      } else if (!check.enabled) {
+        navigation.navigate('home');
       }
 
-      // if (Object.is(check.status, 'enabled')) {
-      //   Geolocation.getCurrentPosition(
-      //     (info) => {
-      //       setMyLocation(info);
-      //     },
-      //     (error) => {
-      //       navigation.navigate('home');
-      //       console.warn('GPS no response');
-      //     },
-      //     {enableHighAccuracy: true, timeout: 40000},
-      //   );
-
-      //   Geolocation.watchPosition(
-      //     (a: any) => {
-      //       setMyLocation(a);
-      //     },
-      //     (error: any) => {},
-      //     {
-      //       enableHighAccuracy: true,
-      //       timeout: 1000,
-      //       distanceFilter: 0,
-      //       maximumAge: 0,
-      //     },
-      //   );
-      // }
+      Geolocation.watchPosition(
+        (a: any) => {
+          setMyLocation(a);
+          console.log(a);
+        },
+        (error: any) => {
+          console.log(error);
+        },
+        {
+          enableHighAccuracy: false,
+          timeout: 1000,
+          distanceFilter: 0,
+          maximumAge: 0,
+        },
+      );
     } catch (error) {
       navigation.navigate('home');
     }
   };
 
   useEffect(() => {
-    checkGPS();
+    getCurrentPosition();
     // watchPosition();
 
     return () => {
-      // Geolocation.stopObserving();
+      Geolocation.stopObserving();
     };
   }, []);
 
@@ -107,14 +108,7 @@ const nearbyShop: React.FC = ({navigation}) => {
           longitudeDelta: 0.0121,
         }}></MapView>
       <TouchableOpacity
-        onPress={() =>
-          mapRef?.current?.animateCamera({
-            center: {
-              latitude: myLocation?.coords?.latitude,
-              longitude: myLocation?.coords?.longitude,
-            },
-          })
-        }
+        onPress={() => userAnimateMap()}
         style={{position: 'absolute', top: 50, right: 20}}>
         <IconMaterial name="my-location" size={24} />
       </TouchableOpacity>

@@ -11,15 +11,9 @@ import Recomenndation from './recomendation';
 import {Banner, HeaderHome} from '../../../components';
 import {bannerData} from '../../../assets/data/';
 import {useDispatch, useSelector} from 'react-redux';
-import {
-  getItemList,
-  clearItemList,
-} from '../../../config/redux/actions/itemHandler';
-import {getCart, cleanCart} from '../../../config/redux/actions/cartHandler';
-import {
-  getFavorite,
-  cleanFavorite,
-} from '../../../config/redux/actions/favoriteHandler';
+import {getItemList, clearItemList} from 'reduxAct/itemHandler';
+import {getCart, cleanCart} from 'reduxAct/cartHandler';
+import {getFavorite, cleanFavorite} from 'reduxAct/favoriteHandler';
 
 const home: React.FC = () => {
   const dispatch = useDispatch();

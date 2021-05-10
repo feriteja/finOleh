@@ -11,25 +11,15 @@ import {
 import Colors from '../../../assets/theme/light';
 import {Gap, ItemCard} from '../../../components';
 import {useNavigation} from '@react-navigation/core';
+import {item} from 'constants/types/dataTypes';
+import {homeNavProp} from 'constants/types/navigatorTypes';
 
 interface Props {
-  data: {
-    name: string;
-    price: number;
-    originalPrice: number;
-    img: string;
-    shop: {
-      lat: number;
-      location: string;
-      name: string;
-      lng: number;
-    };
-    ref: string;
-  }[];
+  data: item[];
 }
 
 const recomendation: React.FC<Props> = ({data}) => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<homeNavProp>();
 
   return (
     <View>

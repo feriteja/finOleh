@@ -35,19 +35,17 @@ const signup: React.FC = () => {
   const onRegister = () => {
     setLoading(true);
     if (passWord === passWordConf && passWord !== '') {
-      dispatch(signUp({email: email.trim(), password: passWord.trim()})).then(
-        (a) => {
-          if (a.status === 'error') {
-            setErrorMessage(a.message);
-            setLoading(false);
-          } else {
-            {
-              navigation.reset({index: 0, routes: [{name: 'main'}]}),
-                setLoading(false);
-            }
+      dispatch(signUp({email: email, password: passWord})).then((a) => {
+        if (a.status === 'error') {
+          setErrorMessage(a.message);
+          setLoading(false);
+        } else {
+          {
+            navigation.reset({index: 0, routes: [{name: 'main'}]}),
+              setLoading(false);
           }
-        },
-      );
+        }
+      });
     } else if (email == '') {
       setErrorMessage('Please fill the blank input');
       setLoading(false);
@@ -85,6 +83,7 @@ const signup: React.FC = () => {
           <Gap height={15} />
           <View style={styles.textInputContainer}>
             <TextInput
+              textContentType="username"
               onChangeText={(e) => setName(e)}
               value={name}
               style={styles.textInput}
@@ -94,6 +93,7 @@ const signup: React.FC = () => {
           <Gap height={15} />
           <View style={styles.textInputContainer}>
             <TextInput
+              textContentType="emailAddress"
               autoCapitalize="none"
               onChangeText={(e) => setEmail(e)}
               value={email}
@@ -104,6 +104,7 @@ const signup: React.FC = () => {
           <Gap height={15} />
           <View style={styles.textInputContainer}>
             <TextInput
+              textContentType="password"
               secureTextEntry={secure}
               style={styles.textInput}
               value={passWord}
@@ -117,6 +118,7 @@ const signup: React.FC = () => {
           <Gap height={15} />
           <View style={styles.textInputContainer}>
             <TextInput
+              textContentType="password"
               value={passWordConf}
               onChangeText={(e) => setPassWordConf(e)}
               secureTextEntry={secureConf}

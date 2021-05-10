@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./src", 
+        "experimentalDecorators": true, 
+        "paths": {
+        "@reduxAct/*":["./config/redux/actions/*"],
+        "@myComponents":["./components"],
+        "@myFunction/*":["./utils/functions/*"],
+        "@myColors/*" :["./assets/theme/*"]
+        }
+    }
+}

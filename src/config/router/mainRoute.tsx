@@ -16,6 +16,13 @@ import Colors from '../../assets/theme/light';
 import LocationServicesDialogBox from 'react-native-android-location-services-dialog-box';
 import {useSelector} from 'react-redux';
 
+export type bottomParamList = {
+  home: undefined;
+  nearbyShop: undefined;
+  cart: undefined;
+  profile: undefined;
+};
+
 interface Props {
   navigation: any;
 }
@@ -34,7 +41,7 @@ const Toast = ({visible, message}: {visible: Boolean; message: string}) => {
   return null;
 };
 
-const BottomNav = createBottomTabNavigator();
+const BottomNav = createBottomTabNavigator<bottomParamList>();
 
 const mainRoute: React.FC<Props> = ({navigation}) => {
   const auth = useSelector((state) => state.auth);

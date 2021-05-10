@@ -37,7 +37,7 @@ const signIn = ({email, password}: userPass) => {
 const signUp = ({email, password}: userPass) => {
   return (dispatch: any) => {
     return auth()
-      .createUserWithEmailAndPassword(email, password)
+      .createUserWithEmailAndPassword(email.trim(), password.trim())
       .then((data) => {
         dispatch({
           type: 'LOGINAUTH',
