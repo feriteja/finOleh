@@ -57,13 +57,9 @@ const cart: React.FC<Props> = ({navigation}) => {
       <ScrollView style={styles.content}>
         {dataCart.length != 0 ? (
           <FlatList
-            keyExtractor={(a, index) => index.toString()}
+            keyExtractor={(a, index) => a.uid}
             contentContainerStyle={{paddingHorizontal: 10}}
-            ItemSeparatorComponent={() => (
-              <View
-                style={{height: 1, backgroundColor: '#ccc', marginVertical: 10}}
-              />
-            )}
+            ItemSeparatorComponent={() => <View style={{height: 20}} />}
             data={dataCart}
             renderItem={({item, index}) => <CartCard item={item} />}
           />

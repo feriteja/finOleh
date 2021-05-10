@@ -25,13 +25,12 @@ const recomendation: React.FC<Props> = ({data}) => {
     <View>
       <View style={styles.topContainer}>
         <Text style={styles.title}>For You</Text>
-        {/* <Pressable onPress={() => console.warn('See more')}>
+        <Pressable onPress={() => console.warn('See more')}>
           <Text style={styles.seeMore}>See more</Text>
-        </Pressable> */}
+        </Pressable>
       </View>
       <View style={styles.content}>
         <FlatList
-          // horizontal
           keyExtractor={(item, idx) => idx.toString()}
           data={data}
           numColumns={2}
@@ -67,6 +66,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'baseline',
     paddingHorizontal: 10,
+    paddingVertical: 10,
   },
   title: {
     fontWeight: 'bold',

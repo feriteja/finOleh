@@ -12,6 +12,7 @@ import {
 import Colors from '../../../assets/theme/light';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/core';
+import {color} from 'react-native-reanimated';
 
 const {height, width} = Dimensions.get('window');
 
@@ -27,22 +28,20 @@ const headerItemDetail: React.FC<Props> = ({data}) => {
       <TouchableOpacity
         onPress={() => navigation.goBack()}
         style={styles.backContainer}>
-        <IonIcon name="arrow-back" size={25} />
-      </TouchableOpacity>
-      <View style={styles.inputContainer}>
-        <IonIcon name="search" size={24} />
-        <TextInput
-          style={styles.textInput}
-          placeholder={data?.recomendation || 'Cari makanan'}
+        <IonIcon
+          name="arrow-back"
+          size={25}
+          style={styles.iconStyle}
+          color={Colors.gray7}
         />
-      </View>
+      </TouchableOpacity>
       <View style={styles.navIcon}>
         <Pressable onPress={() => navigation.navigate('favorite')}>
           <IonIcon
-            style={styles.iconStyle}
+            style={[styles.iconStyle]}
             name="heart"
             size={25}
-            color={Colors.gray}
+            color={Colors.gray7}
           />
         </Pressable>
         <TouchableOpacity
@@ -51,7 +50,7 @@ const headerItemDetail: React.FC<Props> = ({data}) => {
             name="cart-outline"
             style={styles.iconStyle}
             size={25}
-            color={Colors.gray}
+            color={Colors.gray7}
           />
         </TouchableOpacity>
       </View>
@@ -63,12 +62,11 @@ export default headerItemDetail;
 
 const styles = StyleSheet.create({
   container: {
+    position: 'absolute',
     flexDirection: 'row',
     alignItems: 'center',
-    paddingTop: StatusBar.currentHeight,
-    paddingBottom: 10,
-    backgroundColor: Colors.gray7,
-    elevation: 2,
+    paddingVertical: 10,
+    backgroundColor: 'transparent',
     width,
     zIndex: 999,
     paddingHorizontal: 10,
@@ -76,14 +74,12 @@ const styles = StyleSheet.create({
   },
   backContainer: {marginRight: 10, borderRadius: 999, padding: 5},
   inputContainer: {
-    borderWidth: 1,
-    borderColor: Colors.gray,
     borderRadius: 7,
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 5,
     paddingVertical: 5,
-    backgroundColor: Colors.gray7,
+    backgroundColor: 'transparent',
   },
   textInput: {
     width: 230,
@@ -95,13 +91,13 @@ const styles = StyleSheet.create({
   navIcon: {
     flexDirection: 'row',
     height: 40,
-    flex: 1,
+    minWidth: 70,
     alignItems: 'center',
     justifyContent: 'space-around',
   },
   iconStyle: {
-    textShadowColor: '#ababab',
-    textShadowRadius: 1,
-    textShadowOffset: {height: 0.4, width: 0.4},
+    textShadowColor: '#000',
+    textShadowOffset: {height: 1, width: 1},
+    textShadowRadius: 5,
   },
 });

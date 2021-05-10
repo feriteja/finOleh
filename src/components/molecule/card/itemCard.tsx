@@ -3,21 +3,11 @@ import {StyleSheet, Text, View, Image, Dimensions} from 'react-native';
 import {Gap} from '../../index';
 import Colors from '../../../assets/theme/light';
 import IonIcon from 'react-native-vector-icons/Ionicons';
+import {item} from 'constants/types/dataTypes';
+import IconFeather from 'react-native-vector-icons/Feather';
 
 interface Props {
-  item: {
-    name: string;
-    price: number;
-    originalPrice: number;
-    img: string;
-    shop: {
-      lat: number;
-      location: string;
-      name: string;
-      lng: number;
-    };
-    ref: string;
-  };
+  item: item;
 }
 
 const {height, width} = Dimensions.get('window');
@@ -29,10 +19,13 @@ const itemCard: React.FC<Props> = ({item}) => {
 
   return (
     <View style={styles.cardContainer}>
-      <Image source={{uri: item.img}} style={{height: 120, width: undefined}} />
+      <Image
+        source={{uri: item.img}}
+        style={{height: 120, width: undefined, resizeMode: 'cover'}}
+      />
       <Gap height={4} />
       <View style={styles.cardContent}>
-        <Text numberOfLines={2}>
+        <Text style={styles.textTitle} numberOfLines={2}>
           {item?.name || 'Dodol Garut Rasa Rujak Cuka Digulaan'}
         </Text>
         <Gap height={4} />
@@ -45,12 +38,19 @@ const itemCard: React.FC<Props> = ({item}) => {
           </View>
         )}
         <Gap height={4} />
-        <Text style={styles.textPrice}>Rp {item.price}</Text>
 
         <Gap height={5} />
-        <View style={styles.cardLocation}>
-          <IonIcon name="location-outline" size={16} />
-          <Text style={styles.textLocation}>{item?.location || 'bandung'}</Text>
+        <View style={[styles.cardLocation, {justifyContent: 'space-between'}]}>
+          <View style={styles.cardLocation}>
+            <Text style={styles.textPrice}>Rp {item.price}</Text>
+            {/* <IonIcon name="location-outline" size={16} />
+            <Text style={styles.textLocation}>
+              {item?.location || 'bandung'}
+            </Text> */}
+          </View>
+          <View>
+            <IconFeather name="shopping-bag" size={25} color="#999" />
+          </View>
         </View>
       </View>
     </View>
@@ -61,16 +61,16 @@ export default itemCard;
 
 const styles = StyleSheet.create({
   cardContainer: {
-    // height: 260,
-    paddingBottom: 10,
+    paddingBottom: 5,
     width: width / 2 - 30,
     borderRadius: 7,
     overflow: 'hidden',
     borderWidth: 0.8,
+    backgroundColor: '#F3F3F3',
     borderColor: Colors.gray,
   },
   cardContent: {
-    padding: 5,
+    padding: 10,
     flex: 1,
   },
   cardLocation: {
@@ -98,10 +98,12 @@ const styles = StyleSheet.create({
     textDecorationLine: 'line-through',
   },
   textPrice: {
+    fontSize: 14,
     fontWeight: 'bold',
   },
-  textLocation: {
-    textTransform: 'capitalize',
-    fontSize: 12,
+
+  textTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });

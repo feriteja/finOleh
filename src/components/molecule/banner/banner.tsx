@@ -19,7 +19,7 @@ interface dataObj {
 }
 
 interface Props {
-  data: Array<dataObj>;
+  data: dataObj[];
 }
 
 const banner: React.FC<Props> = ({data}) => {
@@ -36,7 +36,7 @@ const banner: React.FC<Props> = ({data}) => {
           [{nativeEvent: {contentOffset: {x: scrollX}}}],
           {useNativeDriver: false},
         )}
-        keyExtractor={(item, index) => index.toString()}
+        keyExtractor={(item, index) => item.name}
         renderItem={({item, index}) => {
           return (
             <View

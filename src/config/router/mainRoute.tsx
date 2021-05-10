@@ -15,6 +15,7 @@ import IconFeather from 'react-native-vector-icons/Feather';
 import Colors from '../../assets/theme/light';
 import LocationServicesDialogBox from 'react-native-android-location-services-dialog-box';
 import {useSelector} from 'react-redux';
+import IconFA5 from 'react-native-vector-icons/FontAwesome5';
 
 export type bottomParamList = {
   home: undefined;
@@ -133,7 +134,7 @@ const mainRoute: React.FC<Props> = ({navigation}) => {
             <TouchableOpacity {...props} onPress={() => checkPermissionMap()} />
           ),
           tabBarIcon: ({color, size}) => (
-            <IconFeather name="shopping-bag" size={25} color={color} />
+            <IconFA5 name="store-alt" size={25} color={color} />
           ),
         }}
       />
@@ -170,7 +171,7 @@ const mainRoute: React.FC<Props> = ({navigation}) => {
                   </Text>
                 </View>
               )}
-              <IonIcon name="cart-outline" size={25} color={color} />
+              <IconFeather name="shopping-bag" size={25} color={color} />
             </View>
           ),
         }}

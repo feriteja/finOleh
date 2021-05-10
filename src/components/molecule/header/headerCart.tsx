@@ -25,9 +25,7 @@ const headerCart = () => {
   return (
     <View style={styles.header}>
       <Text style={styles.headerText}>Cart</Text>
-      <Pressable
-        style={{position: 'absolute', bottom: 5, right: 10}}
-        onPress={() => navigationHandler()}>
+      <Pressable style={{}} onPress={() => navigationHandler()}>
         <IonIcon name="heart-outline" size={25} />
       </Pressable>
     </View>
@@ -42,8 +40,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingTop: 60,
-    paddingBottom: 20,
     height: 50,
     width,
     zIndex: 999,

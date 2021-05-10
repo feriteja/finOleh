@@ -9,29 +9,13 @@ import {
   Pressable,
 } from 'react-native';
 import {Gap, HeaderItemDetail} from '../../../components/';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {addCartItem} from '../../../config/redux/actions/cartHandler';
 import {addToFavorite} from '../../../config/redux/actions/favoriteHandler';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import IconFeather from 'react-native-vector-icons/Feather';
 import Colors from '../../../assets/theme/light';
-
-interface item {
-  name: string;
-  price: number;
-  originalPrice: number;
-  img: string;
-  shop: {
-    lat: number;
-    location: string;
-    name: string;
-    lng: number;
-    shopRef: string;
-    shopUID: string;
-  };
-  ref: string;
-  uid: string;
-}
+import {item} from 'constants/types/dataTypes';
 
 const {height, width} = Dimensions.get('window');
 
@@ -44,24 +28,38 @@ const itemDetail = ({route, navigation}: any) => {
     ((item.originalPrice - item.price) / item.originalPrice) * 100,
   );
 
+  const favorite: [] = useSelector((state) => state.favorite);
+  const cart: [] = useSelector((state) => state.cart);
+
   return (
     <View style={styles.container}>
       <HeaderItemDetail />
-      <Image
-        source={{
-          uri: item.img,
-        }}
-        style={styles.img}
-      />
+      <View
+        style={{
+          height: 300,
+          backgroundColor: '#eaeaea',
+        }}>
+        <Image
+          source={{
+            uri: item.img,
+          }}
+          style={styles.img}
+        />
+      </View>
       <View style={styles.content}>
         <View
           style={{
             flexDirection: 'row',
+            alignItems: 'center',
             justifyContent: 'space-between',
           }}>
-          <Text style={styles.textPrice}>Rp. {item.price}</Text>
+          <Text style={styles.textPrice}>{item.name}</Text>
           <TouchableOpacity onPress={() => dispatch(addToFavorite(item))}>
-            <IonIcon name="heart-outline" color={'#444'} size={25} />
+            {favorite.some((itemFav) => itemFav.uid == item.uid) ? (
+              <IonIcon name="heart" color={'red'} size={25} />
+            ) : (
+              <IonIcon name="heart-outline" color={'#444'} size={25} />
+            )}
           </TouchableOpacity>
         </View>
         <Gap height={10} />
@@ -70,7 +68,13 @@ const itemDetail = ({route, navigation}: any) => {
           <Text style={styles.textDiscount}>Rp. {item.originalPrice}</Text>
         </View>
         <Gap height={10} />
-        <Text style={styles.textTitle}>{item.name}</Text>
+        <Text style={styles.textSubTitle}>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium
+          reiciendis magni cumque quisquam fugiat natus velit iste ad alias? Ex
+          unde, maiores doloremque iusto sapiente earum commodi cum vitae non
+          asperiores labore? Perferendis rem itaque maxime a iste? Assumenda,
+          voluptatibus.
+        </Text>
       </View>
       <View style={styles.separator} />
       <View style={styles.shopInfoContainer}>
@@ -109,10 +113,24 @@ const itemDetail = ({route, navigation}: any) => {
               }),
             )
           }
-          style={[styles.buttonAction, {backgroundColor: Colors.success}]}>
-          <Text style={[styles.buttonActionText, {color: Colors.gray7}]}>
-            + Save to cart
-          </Text>
+          style={[
+            styles.buttonAction,
+            {
+              backgroundColor: cart.some((itemSome) => itemSome.uid == item.uid)
+                ? '#aaa'
+                : Colors.success,
+              borderColor: '#aaa',
+            },
+          ]}>
+          {cart.some((itemSome) => itemSome.uid == item.uid) ? (
+            <Text style={[styles.buttonActionText, {color: Colors.gray7}]}>
+              ✓ added to cart
+            </Text>
+          ) : (
+            <Text style={[styles.buttonActionText, {color: Colors.gray7}]}>
+              + Save to cart
+            </Text>
+          )}
         </TouchableOpacity>
       </View>
     </View>
@@ -124,15 +142,17 @@ export default itemDetail;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#fafafa',
   },
-  content: {paddingHorizontal: 10, paddingVertical: 15},
+  content: {paddingHorizontal: 15, paddingVertical: 15},
   img: {
-    height: 300,
+    ...StyleSheet.absoluteFillObject,
+    height: undefined,
     width: undefined,
-    resizeMode: 'cover',
+    resizeMode: 'contain',
   },
   textPrice: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: 'bold',
   },
   discountContainer: {flexDirection: 'row'},
@@ -151,6 +171,13 @@ const styles = StyleSheet.create({
     borderRadius: 3,
   },
   textTitle: {fontSize: 17},
+
+  textSubTitle: {
+    fontSize: 14,
+    // opacity: 0.8,
+    color: '#333',
+    letterSpacing: 1.1,
+  },
   separator: {
     height: 5,
     backgroundColor: Colors.gray3,

@@ -38,8 +38,8 @@ const home: React.FC = () => {
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <StatusBar
         barStyle="dark-content"
-        translucent
-        backgroundColor="transparent"
+        // translucent
+        backgroundColor="#fff"
       />
       <HeaderHome data={foodData} />
       <Banner data={bannerData} />

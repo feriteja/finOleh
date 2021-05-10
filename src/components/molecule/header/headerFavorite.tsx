@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 
 import IonIcon from 'react-native-vector-icons/Ionicons';
+import IconFeather from 'react-native-vector-icons/Feather';
 import {useSelector} from 'react-redux';
 import Colors from '../../../assets/theme/light';
 
@@ -42,7 +43,7 @@ const headerFavorite: React.FC = () => {
           }}>
           {cart.length}
         </Text>
-        <IonIcon name="cart-outline" size={25} />
+        <IconFeather name="shopping-bag" size={25} />
       </Pressable>
     </View>
   );

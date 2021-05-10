@@ -1,21 +1,20 @@
 import React from 'react';
-import {NavigationContainer  } from '@react-navigation/native';
+import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import Auth from './authRoute';
 import Main from './mainRoute';
 import Splash from '../../screens/splash/splashScreen';
 import {ConfirmPurchase, ItemDetail, Favorite} from '../../screens/main';
-import { item } from 'constants/types/dataTypes';
+import {item} from 'constants/types/dataTypes';
 
-export type rootParamList {
-  splash:undefined;
-  main:undefined;
-  confirm:undefined;
-  itemDetail: {item:item} ;
-  favorite:undefined;
-  auth:undefined;
-
-}
+export type rootParamList = {
+  splash: undefined;
+  main: undefined;
+  confirm: undefined;
+  itemDetail: {item: item};
+  favorite: undefined;
+  auth: undefined;
+};
 
 const Stack = createStackNavigator<rootParamList>();
 

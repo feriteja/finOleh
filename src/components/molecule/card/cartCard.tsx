@@ -116,7 +116,7 @@ const cartCard: React.FC<Props> = ({item}) => {
             />
           </TouchableOpacity>
           <TextInput
-            value={numItem.toString()}
+            value={numItem?.toString() || '0'}
             editable={false}
             textAlign="center"
             style={{padding: 0, margin: 0, paddingHorizontal: 5, color: '#000'}}

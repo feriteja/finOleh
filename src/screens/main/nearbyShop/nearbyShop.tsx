@@ -58,7 +58,6 @@ const nearbyShop: React.FC = ({navigation}) => {
       Geolocation.watchPosition(
         (a: any) => {
           setMyLocation(a);
-          console.log(a);
         },
         (error: any) => {
           console.log(error);

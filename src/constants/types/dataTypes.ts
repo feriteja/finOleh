@@ -1,4 +1,4 @@
-type item = {
+export type item = {
   name: string;
   price: number;
   originalPrice: number;
@@ -8,8 +8,9 @@ type item = {
     location: string;
     name: string;
     lng: number;
+    shopRef: string;
+    shopUID: string;
   };
   ref: string;
+  uid: string;
 };
-
-export {item};
